@@ -1,8 +1,8 @@
 Feature: Login Action
 
-  Scenario: Unsuccessful login with invalid credentials
-    Given I open vodafone
+  Scenario: Login with invalid credentials
+    Given I open vodafone's website
     And I click on My Vodafone in the top right corner menu
     And I click login on the next page
-    When I enter "test" as username and "test" as password in text box
-    Then I should get wrong messages
+    When I enter "sdfdsf" as username and "jinnkn" as password in text box
+    Then I get a wrong message

@@ -24,8 +24,8 @@ public class LoginStepdefs {
         driver.manage().window().maximize();
     }
 
-    @Given("^I open vodafone$")
-    public void iOpenVodafone() throws Throwable {
+    @Given("^I open vodafone's website$")
+    public void iOpenVodafoneSWebsite() throws Throwable {
         //Set implicit wait of 10 seconds
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://www.vodafone.co.nz/");
@@ -56,8 +56,8 @@ public class LoginStepdefs {
         signInButton.click();
     }
 
-    @Then("^I should get wrong messages$")
-    public void iShouldGetWrongMessages() throws Throwable {
+    @Then("^I get a wrong message$")
+    public void iGetAWrongMessages() throws Throwable {
         WebElement submitErrorElement = driver.findElement(By.className("submitError"));
         Assert.assertNotNull(submitErrorElement);
     }
