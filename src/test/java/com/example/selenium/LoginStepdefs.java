@@ -2,69 +2,73 @@ package com.example.selenium;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.concurrent.TimeUnit;
 
 public class LoginStepdefs {
-    private WebDriver driver;
+    private Browser browser = new Browser();
 
     @Before
     public void setup() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        this.browser.windowMaxmize();
     }
 
-    @Given("^I open vodafone's website$")
-    public void iOpenVodafoneSWebsite() throws Throwable {
-        //Set implicit wait of 10 seconds
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://www.vodafone.co.nz/");
+    @Given("^I visit url \"([^\"]*)\"$")
+    public void iVisitUrl(String url) throws Throwable {
+        this.browser.openURL(url);
     }
 
-    @And("^I click on My Vodafone in the top right corner menu$")
-    public void iClickOnMyVodafoneInTheTopRightCornerMenu() throws Throwable {
-        WebElement myVodafone = driver.findElement(By.linkText("My Vodafone"));
-        myVodafone.click();
+    @Then("^I should be navigated to \"([^\"]*)\"$")
+    public void iShouldBeNavigatedTo(String url) throws Throwable {
+        String currentURL = this.browser.getCurrentURL();
+        Assert.assertEquals(url, currentURL);
     }
 
-    @And("^I click login on the next page$")
-    public void iClickLoginOnTheNextPage() throws Throwable {
-        WebElement login = driver.findElement(By.linkText("Login"));
-        login.click();
+    @When("^I click \"([^\"]*)\" link$")
+    public void iClickLink(String text) throws Throwable {
+        WebElement element = this.browser.findElementByLinkText(text);
+        this.browser.click(element);
     }
 
-    @When("^I enter \"([^\"]*)\" as username and \"([^\"]*)\" as password in text box$")
-    public void iEnterAsUsernameAndAsPasswordInTextBox(String username, String password) throws Throwable {
-        //Enter username and password in textbox
-        WebElement usernameTextBox = driver.findElement(By.id("myvfLoginOnlineId"));
-        usernameTextBox.sendKeys(username);
-        WebElement passowordTextBox = driver.findElement(By.id("myvfLoginPassword"));
-        passowordTextBox.sendKeys(password);
+    @When("^I enter \"([^\"]*)\" in \"([^\"]*)\" input field$")
+    public void iEnterInInputField(String text, String textFieldName) throws Throwable {
+        String elementId  = "";
+        if (textFieldName.equals("username")) {
+            elementId = "myvfLoginOnlineId";
+        } else if (textFieldName.equals("password")) {
+            elementId = "myvfLoginPassword";
+        }
 
-        //Click on Sign in button
-        WebElement signInButton = driver.findElement(By.id("sign-in-button"));
-        signInButton.click();
+        WebElement textFieldElement = this.browser.findElementByElementId(elementId);
+        this.browser.sendKeys(textFieldElement, text);
     }
 
-    @Then("^I get a wrong message$")
-    public void iGetAWrongMessages() throws Throwable {
-        WebElement submitErrorElement = driver.findElement(By.className("submitError"));
+    @When("^I click \"([^\"]*)\" button$")
+    public void iClickButton(String buttonName) throws Throwable {
+        String elementId = "";
+        if (buttonName.equals("Sign in")) {
+            elementId = "sign-in-button";
+        }
+        WebElement signInButton = this.browser.findElementByElementId(elementId);
+        this.browser.click(signInButton);
+    }
+
+    @Then("^I should get a wrong message \"([^\"]*)\"$")
+    public void iShouldGetAWrongMessage(String message) throws Throwable {
+        WebElement submitErrorElement = this.browser.findElementByClassName("submitError");
         Assert.assertNotNull(submitErrorElement);
+        String errorMessage = submitErrorElement.getText();
+        Assert.assertEquals(message, errorMessage);
     }
 
     @After
     public void closeBrowser() {
-        driver.quit();
+        this.browser.quitBrowser();
     }
 
 }

@@ -1,8 +1,12 @@
 Feature: Login Action
 
   Scenario: Login with invalid credentials
-    Given I open vodafone's website
-    And I click on My Vodafone in the top right corner menu
-    And I click login on the next page
-    When I enter "sdfdsf" as username and "jinnkn" as password in text box
-    Then I get a wrong message
+    Given I visit url "http://www.vodafone.co.nz/"
+    When I click "My Vodafone" link
+    Then I should be navigated to "http://www.vodafone.co.nz/using-myvodafone/"
+    When I click "Login" link
+    Then I should be navigated to "https://www.vodafone.co.nz/knox/login_handler.jsp"
+    When I enter "John" in "username" input field
+    And I enter "password" in "password" input field
+    And I click "Sign in" button
+    Then I should get a wrong message "Your email address is not registered for My Vodafone."

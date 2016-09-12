@@ -8,11 +8,11 @@ import org.junit.runner.RunWith;
 @RunWith(ExtendedCucumber.class)
 @ExtendedCucumberOptions(
         jsonReport = "target/cucumber.json",
-        retryCount = 3,
+        //retryCount = 3,
         detailedReport = true,
         detailedAggregatedReport = true,
         overviewReport = true,
-        //coverageReport = true,
+        coverageReport = true,
         jsonUsageReport = "target/cucumber-usage.json",
         usageReport = true,
         toPDF = true,
