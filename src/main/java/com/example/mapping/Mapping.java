@@ -23,10 +23,9 @@ public class Mapping {
     public static String getMapping(String url, String name) {
         for (HashMap<String, Object> page : Mapping.result.get("pages")) {
             if (page.get("url").equals(url)) {
-                for (Object mappings : (ArrayList) page.get("mappings")) {
-                    if (((LinkedHashMap) mappings).containsKey(name)) {
-                        return ((LinkedHashMap) mappings).get(name).toString();
-                    }
+                HashMap mappings = (HashMap) page.get("mappings");
+                if (mappings.containsKey(name)) {
+                    return mappings.get(name).toString();
                 }
             }
         }
