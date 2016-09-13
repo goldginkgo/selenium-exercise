@@ -17,7 +17,7 @@ public class Browser {
     public void openURL(String url) {
         //Set implicit wait of 10 seconds
         this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        this.driver.get("http://www.vodafone.co.nz/");
+        this.driver.get(url);
     }
 
     public String getCurrentURL() {

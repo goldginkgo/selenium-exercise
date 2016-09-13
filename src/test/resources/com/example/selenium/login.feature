@@ -1,4 +1,9 @@
+@login
 Feature: Login Action
+
+  As a vodafone customer,
+  when I enter my credentials, I should be logged in with my account,
+  so that I can check my account information.
 
   Scenario: Login with invalid credentials
     Given I visit url "http://www.vodafone.co.nz/"
