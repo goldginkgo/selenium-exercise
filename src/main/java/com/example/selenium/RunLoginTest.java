@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {"json:report/cucumber.json"},
         tags = {"@login"},
-        features = { "src/test/resources/com/example/selenium" })
+        features = { "src/main/resources/com/example/selenium" })
 public class RunLoginTest {
 
 }

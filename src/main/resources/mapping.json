@@ -1,0 +1,22 @@
+{
+  "pages": [
+    {
+      "url": "https://www.vodafone.co.nz/knox/login_handler.jsp",
+      "mappings": [
+        {
+          "Sign in": "sign-in-button",
+          "username": "myvfLoginOnlineId",
+          "password": "myvfLoginPassword"
+        }
+      ]
+    },
+    {
+      "url": "https://www.vodafone.co.nz/",
+      "mappings": [
+        {
+          "Sign in": "sign-in-button"
+        }
+      ]
+    }
+  ]
+}

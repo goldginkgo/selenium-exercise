@@ -1,5 +1,6 @@
 package com.example.selenium;
 
+import com.example.mapping.Mapping;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -37,23 +38,14 @@ public class LoginStepdefs {
 
     @When("^I enter \"([^\"]*)\" in \"([^\"]*)\" input field$")
     public void iEnterInInputField(String text, String textFieldName) throws Throwable {
-        String elementId  = "";
-        if (textFieldName.equals("username")) {
-            elementId = "myvfLoginOnlineId";
-        } else if (textFieldName.equals("password")) {
-            elementId = "myvfLoginPassword";
-        }
-
+        String elementId = Mapping.getMapping(this.browser.getCurrentURL(), textFieldName);
         WebElement textFieldElement = this.browser.findElementByElementId(elementId);
         this.browser.sendKeys(textFieldElement, text);
     }
 
     @When("^I click \"([^\"]*)\" button$")
     public void iClickButton(String buttonName) throws Throwable {
-        String elementId = "";
-        if (buttonName.equals("Sign in")) {
-            elementId = "sign-in-button";
-        }
+        String elementId = Mapping.getMapping(this.browser.getCurrentURL(), buttonName);
         WebElement signInButton = this.browser.findElementByElementId(elementId);
         this.browser.click(signInButton);
     }
